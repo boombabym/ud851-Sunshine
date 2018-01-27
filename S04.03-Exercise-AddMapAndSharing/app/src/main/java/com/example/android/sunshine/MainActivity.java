@@ -201,6 +201,23 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         }
     }
 
+    private void openLocationInMap() {
+        String addressString = "1600 Pennsylvania Avenue, Washington, DC";
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("geo").path("0,0").appendQueryParameter("q", addressString);
+        Uri addressUri = builder.build();
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(addressUri);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            Log.d(TAG, "Couldn't call " + addressUri.toString()
+                + ", no receiving apps installed!");
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
@@ -222,6 +239,10 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         }
 
         // TODO (2) Launch the map when the map menu item is clicked
+        else if (id == R.id.action_map){
+            openLocationInMap();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
