@@ -106,7 +106,13 @@ public class MainActivity extends AppCompatActivity implements
         mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
         // TODO (7) Remove the code for the AsyncTask and initialize the AsyncTaskLoader
+        int loaderId = FORECAST_LOADER_ID;
 
+        LoaderManager.LoaderCallbacks<String[]> callback = MainActivity.this;
+
+        Bundle bundleForLoader = null;
+
+        getSupportLoaderManager().initLoader(loaderId, bundleForLoader, callback);
     }
 
     /**
@@ -200,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements
     // TODO (4) When the load is finished, show either the data or an error message if there is no data
     @Override
     public void onLoadFinished(Loader<String[]> loader, String[] data) {
-        mLoadingIndicator.setVisibility(View.VISIBLE);
+        mLoadingIndicator.setVisibility(View.INVISIBLE);
         mForecastAdapter.setWeatherData(data);
         if (data != null){
             showWeatherDataView();
