@@ -308,6 +308,8 @@ public class WeatherProvider extends ContentProvider {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int rowsDeleted;
 
+        if (selection == null) selection = "1";
+
 //          TODO (2) Only implement the functionality, given the proper URI, to delete ALL rows in the weather table
         switch (sUriMatcher.match(uri)) {
             case CODE_WEATHER:
